@@ -588,6 +588,78 @@ const products = [
     image:"saree3.png",
     colour:"Red",
     description:"Celebrate special occasions with the Ruby Red Saree, bringing a beautiful traditional touch to your collection."
+  },
+  {
+    id:4,
+    name:"Saree 4",
+    category:"New Arrivals",
+    price:999,
+    originalPrice:1499,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree4.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
+  },
+  {
+    id:5,
+    name:"Saree 5",
+    category:"New Arrivals",
+    price:999,
+    originalPrice:1599,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree5.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
+  },
+  {
+    id:6,
+    name:"Saree 6",
+    category:"New Arrivals",
+    price:1499,
+    originalPrice:2199,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree6.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
+  },
+  {
+    id:7,
+    name:"Saree 7",
+    category:"New Arrivals",
+    price:4999,
+    originalPrice:6999,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree7.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
+  },
+  {
+    id:8,
+    name:"Saree 8",
+    category:"New Arrivals",
+    price:2999,
+    originalPrice:4299,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree8.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
+  },
+  {
+    id:9,
+    name:"Saree 9",
+    category:"New Arrivals",
+    price:999,
+    originalPrice:1499,
+    desc:"New arrival from our saree collection",
+    label:"New Arrival",
+    image:"saree9.jpeg",
+    colour:"As shown",
+    description:"Discover this beautiful new arrival from our saree collection. Contact us on WhatsApp for price, availability and product details."
   }
 ];
 
@@ -632,11 +704,15 @@ localStorage.setItem("buRecentlyViewed", JSON.stringify(recentlyViewed));
   document.getElementById("productImage").alt = product.name;
 
   document.getElementById("productPrice").innerHTML =
-    money(product.price) +
-    ' <span class="original-price">' + money(product.originalPrice) + '</span>' +
-    ' <span class="discount">' +
-    Math.round((1-product.price/product.originalPrice)*100) +
-    '% OFF</span>';
+    product.price != null
+      ? money(product.price) +
+        (product.originalPrice != null
+          ? ' <span class="original-price">' + money(product.originalPrice) + '</span>' +
+            ' <span class="discount">' +
+            Math.round((1-product.price/product.originalPrice)*100) +
+            '% OFF</span>'
+          : '')
+      : 'Price on request';
 
   document.getElementById("productDescription").textContent = product.description;
   document.getElementById("longDescription").textContent = product.description;
@@ -671,7 +747,9 @@ function buyNow(){
   const message =
     "Hello BU Saree Studio! I would like to order:\n" +
     product.name + "\nQuantity: " + quantity +
-    "\nPrice: " + money(product.price * quantity) +
+    (product.price != null
+      ? "\nPrice: " + money(product.price * quantity)
+      : "\nPrice: Please share the price") +
     "\nPlease confirm availability and delivery details.";
 
   window.open(
@@ -715,7 +793,7 @@ function renderRelatedProducts(){
         <img src="${p.image}" alt="${p.name}">
         <div>
           <h3>${p.name}</h3>
-          <p>${money(p.price)}</p>
+          <p>${p.price != null ? money(p.price) : "Price on request"}</p>
           <span style="font-size:11px;color:#897780">View Product →</span>
         </div>
       </article>
